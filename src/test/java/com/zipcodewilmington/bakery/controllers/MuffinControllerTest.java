@@ -39,7 +39,7 @@ public class MuffinControllerTest {
         String expectedContent = "{\"id\":null,\"flavor\":\"blueberry\"}";
         this.mvc.perform(MockMvcRequestBuilders
                 .get("/muffins/" + givenId))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().string(expectedContent));
     }
 
