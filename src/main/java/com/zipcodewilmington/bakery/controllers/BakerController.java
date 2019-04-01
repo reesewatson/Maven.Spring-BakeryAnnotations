@@ -10,32 +10,34 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class BakerController {
-    private BakerService service;
 
     @Autowired
+    private BakerService service;
+
     public BakerController(BakerService service) {
         this.service = service;
     }
 
+    @RequestMapping(path="/index", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Baker>> index() {
         return new ResponseEntity<>(service.index(), HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<Baker> show(@PathVariable Long id) {
+    @RequestMapping(path="/show", method = RequestMethod.POST)
+    public ResponseEntity<Baker> show(@RequestBody Long id) {
         return new ResponseEntity<>(service.show(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @RequestMapping(path="/create", method = RequestMethod.POST)
     public ResponseEntity<Baker> create(@RequestBody Baker baker) {
         return new ResponseEntity<>(service.create(baker), HttpStatus.CREATED);
     }
-    @PutMapping
-    public ResponseEntity<Baker> update(@PathVariable Long id, Baker baker) {
+    @RequestMapping(path="/update", method = RequestMethod.POST)
+    public ResponseEntity<Baker> update(@RequestBody Long id, Baker baker) {
         return new ResponseEntity<>(service.update(id, baker), HttpStatus.OK);
     }
-    @DeleteMapping
-    public ResponseEntity<Boolean> destroy(@PathVariable Long id) {
+    @RequestMapping(path="/destroy", method = RequestMethod.POST)
+    public ResponseEntity<Boolean> destroy(@RequestBody Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 }

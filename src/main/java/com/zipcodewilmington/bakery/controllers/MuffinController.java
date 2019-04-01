@@ -10,32 +10,34 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MuffinController {
-    private MuffinService service;
 
     @Autowired
+    private MuffinService service;
+
     public MuffinController(MuffinService service) {
         this.service = service;
     }
 
+    @RequestMapping(path="/index", method = RequestMethod.GET)
     public ResponseEntity<Iterable<Muffin>> index() {
         return new ResponseEntity<>(service.index(), HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<Muffin> show(@PathVariable Long id) {
+    @RequestMapping(path="/show", method = RequestMethod.POST)
+    public ResponseEntity<Muffin> show(@RequestBody Long id) {
         return new ResponseEntity<>(service.show(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @RequestMapping(path="/create", method = RequestMethod.POST)
     public ResponseEntity<Muffin> create(@RequestBody Muffin baker) {
         return new ResponseEntity<>(service.create(baker), HttpStatus.CREATED);
     }
-    @PutMapping
-    public ResponseEntity<Muffin> update(@PathVariable Long id, Muffin baker) {
+    @RequestMapping(path="/update", method = RequestMethod.POST)
+    public ResponseEntity<Muffin> update(@RequestBody Long id, Muffin baker) {
         return new ResponseEntity<>(service.update(id, baker), HttpStatus.OK);
     }
-    @DeleteMapping
-    public ResponseEntity<Boolean> destroy(@PathVariable Long id) {
+    @RequestMapping(path="/destroy", method = RequestMethod.POST)
+    public ResponseEntity<Boolean> destroy(@RequestBody Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 }
